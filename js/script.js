@@ -12,20 +12,25 @@ class Game {
   }
   // Fisher-Yates shuffle algorithm
   shuffleCard() {
+    console.log("suffle");
+    console.log(this.cards);
     for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      this.cards[j].style.order = i;
-      this.cards[i].style.order = j;
+      const temp = this.cards[i];
+      this.cards[i] = this.cards[j];
+      this.cards[j] = temp;
+      this.cards[i].style.order = i;
     }
     this.checkCards();
   }
   // Checking for fliping cards
   checkCards() {
+    console.log("check");
     this.cards.forEach((card) => {
       card.addEventListener("click", () => {
-        card.classList.add("clicked");
         if (this.canFlip && !card.classList.contains("clicked")) {
           // exlucdng to check same card
+          card.classList.add("clicked");
           this.flip(card);
         }
       });
@@ -33,6 +38,7 @@ class Game {
   }
   // Flipping the card
   flip(card) {
+    console.log("flip");
     this.toCheck.push(card);
     if (this.toCheck.length === 2) {
       this.canFlip = false;
