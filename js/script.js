@@ -10,7 +10,7 @@ class Game {
     this.toCheck = [];
     this.canFlip = true;
   }
-
+  // Fisher-Yates shuffle algorithm
   shuffleCard() {
     for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -19,23 +19,21 @@ class Game {
     }
     this.checkCards();
   }
-
+  // Checking for fliping cards
   checkCards() {
     this.cards.forEach((card) => {
-      card.clicked = false;
-      console.log(card.clicked);
       card.addEventListener("click", () => {
-        if (this.canFlip && !card.clicked) {
-          card.classList.add("clicked");
+        card.classList.add("clicked");
+        if (this.canFlip && !card.classList.contains("clicked")) {
+          // exlucdng to check same card
           this.flip(card);
         }
       });
     });
   }
-
+  // Flipping the card
   flip(card) {
     this.toCheck.push(card);
-    card.clicked = true;
     if (this.toCheck.length === 2) {
       this.canFlip = false;
       setTimeout(() => {
@@ -44,18 +42,19 @@ class Game {
       }, 1000);
     }
   }
+  // Comparing the cards
   compare() {
     if (this.toCheck[0].innerHTML === this.toCheck[1].innerHTML) {
+      // Disappearing matched cards
       this.mathced += 1;
-      console.log("this worked first");
       this.toCheck.forEach((card) => {
         card.classList.remove("clicked");
         card.classList.add("hide");
-        console.log("this worked");
         this.guessedCards.innerHTML = this.mathced;
       });
       this.toCheck.length = 0;
     } else if (this.toCheck[0].innerHTML !== this.toCheck[1].innerHTML) {
+      // Backflip unmatched cards
       this.toCheck.forEach((card) => {
         card.classList.remove("clicked");
       });
@@ -63,7 +62,7 @@ class Game {
     }
     this.restart();
   }
-
+  // Restart game after all cards matched
   restart() {
     if (this.mathced === 8) {
       this.gameOver.classList.add("visible");

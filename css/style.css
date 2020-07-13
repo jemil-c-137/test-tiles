@@ -12,6 +12,7 @@ body {
   height: 100vh;
 }
 
+/* header */
 .header {
   width: 100%;
 }
@@ -27,6 +28,7 @@ body {
   margin-right: 2%;
 }
 
+/* main */
 .main {
   display: flex;
   justify-content: center;
@@ -64,6 +66,7 @@ body {
   display: flex;
 }
 
+/* cards */
 .card {
   position: relative;
 
@@ -105,14 +108,14 @@ body {
   max-width: 100%;
 }
 
-.hide {
-  display: none;
-}
-
 .card.clicked .card-back {
   transform: rotateY(-180deg);
 }
 
 .card.clicked .card-face {
   transform: rotateY(0);
+}
+
+.hide {
+  display: none;
 }
